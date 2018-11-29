@@ -1,0 +1,38 @@
+{
+  "name": "homepage",
+  "version": "1.0.0",
+  "description": "My personal homepage",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/server/server.js",
+    "watch": "webpack -d --w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anthonyemg/homepage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anthonyemg/homepage/issues"
+  },
+  "homepage": "https://github.com/anthonyemg/homepage#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "less": "^3.8.1",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^1.0.1",
+    "es2015": "0.0.0",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
+    "style-loader": "^0.23.1",
+    "webpack-cli": "^3.1.2"
+  }
+}

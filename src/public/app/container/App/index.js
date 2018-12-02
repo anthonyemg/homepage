@@ -6,14 +6,25 @@ class App extends Component {
     super(props)
 
     this.state = {
+      highResPhotos: [],
       loading: true,
       photosDetails: [],
-      highResPhotos: [],
+      userDetails: {},
     }
   }
 
   componentWillMount() {
-    this.handleFetchPhotos();
+    this.handleFetchUserDetails('anthonyemg');
+  }
+
+  handleFetchUserDetails(username) {
+    fetch(`/user-details/${username}`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ userDetails: res });
+        this.handleFetchPhotos(res.user.id);
+      })
+      .catch(err => console.error('Fetch user details error:', err))
   }
 
   handleAddPhotoSizes() {
@@ -27,8 +38,8 @@ class App extends Component {
       .catch(err => console.error('Fetch photo sizes error:', err))
   }
 
-  handleFetchPhotos() {
-    fetch('/photos')
+  handleFetchPhotos(userID) {
+    fetch(`/photos/${userID}`)
       .then(res => res.json())
       .then(res => this.setState({ photosDetails: res.photos.photo }))
       .then(() => this.handleAddPhotoSizes())
@@ -56,16 +67,21 @@ class App extends Component {
       const img = new Image();
       img.src = picture;
       
-      return img
+      return img;
     });
     
     this.preloadedImages = preloadPhotos;
   }
 
+  handleUserSearch(username) {
+    this.handleFetchUserDetails(username);
+  }
+
   render() {
     const {
-      loading,
       highResPhotos,
+      loading,
+      userDetails,
     } = this.state;
 
     return (
@@ -74,8 +90,10 @@ class App extends Component {
 
         <Main 
           handleLoading={(bool) => this.handleLoading(bool)}
+          handleUserSearch={(username) => this.handleUserSearch(username)}
           highResPhotos={highResPhotos}
           loading={loading}
+          userDetails={userDetails}
         />
       </div>
     )

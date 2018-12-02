@@ -17,7 +17,7 @@ class Main extends Component {
   }
 
   render() {
-    const { highResPhotos, loading } = this.props;
+    const { highResPhotos, loading, handleUserSearch } = this.props;
     const { selectedPhotoIndex } = this.state;
 
     return (
@@ -30,6 +30,7 @@ class Main extends Component {
 
         <Navigation
           handleSetPhotoIndex={(index) => this.handleSetPhotoIndex(index)}
+          handleUserSearch={(username) => handleUserSearch(username)}
           selectedPhotoIndex={selectedPhotoIndex}
         />
       </div>

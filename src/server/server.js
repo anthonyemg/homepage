@@ -8,8 +8,8 @@ const { KEY, SECRET, USER_ID } = process.env;
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.get('/photos', function(req, res) {
-  request.get(`https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${KEY}&user_id=${USER_ID}&format=json&nojsoncallback=1`,
+app.get('/photos/:userID', function(req, res) {
+  request.get(`https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${KEY}&user_id=${req.params.userID}&format=json&nojsoncallback=1`,
 
   function (e, r, data) {
     res.send(data);
@@ -18,6 +18,14 @@ app.get('/photos', function(req, res) {
 
 app.get('/photo-sizes/:id', function(req, res) {
   request.get(`https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=${KEY}&photo_id=${req.params.id}&format=json&nojsoncallback=1`,
+
+  function (e, r, data) {
+    res.send(data);
+  })
+})
+
+app.get('/user-details/:username', function(req, res) {
+  request.get(`https://api.flickr.com/services/rest/?method=flickr.people.findByUsername&api_key=${KEY}&username=${req.params.username}&format=json&nojsoncallback=1`,
 
   function (e, r, data) {
     res.send(data);

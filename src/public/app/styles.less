@@ -1,23 +1,10 @@
 body {
-  overflow: hidden;
+  cursor: default;
   margin: 0px;
+  overflow: hidden;
 }
 
 #app {
-  background: url(https://farm7.staticflickr.com/6154/6202343476_881f579ecf_o.jpg);
-  background-position: center; 
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 100vh;
-  transform: translateZ(0);
-}
-
-.app-container {
-  align-items: center;
-  color: #fff;
-  display: flex;
-  font-size: 80px;
-  height: 100vh;
-  justify-content: center;
-  width: 100vw;
+  @import './components/Loading/styles.less';
+  @import './components/Main/styles.less';
 }

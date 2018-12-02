@@ -3,3 +3,6 @@
 
 # bundle
 /src/public/dist/bundle.js
+
+# env
+.env

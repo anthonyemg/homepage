@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Navigation } from '../index.js';
 
 class Main extends Component {
   constructor(props) {
@@ -28,18 +28,10 @@ class Main extends Component {
           style={loading ? { visibility: 'hidden' } : {}}
         />
 
-        <button
-          onClick={() => this.handleSetPhotoIndex(selectedPhotoIndex - 1)}
-        >
-          prev
-        </button>
-
-        <button
-          onClick={() => this.handleSetPhotoIndex(selectedPhotoIndex + 1)}
-        >
-          next
-        </button>
-
+        <Navigation
+          handleSetPhotoIndex={(index) => this.handleSetPhotoIndex(index)}
+          selectedPhotoIndex={selectedPhotoIndex}
+        />
       </div>
     )
   }

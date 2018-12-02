@@ -37,7 +37,7 @@ class App extends Component {
 
   handleHighResPhotos(photos) {
     const highResPhotos = photos.map(photo => {
-      return photo.sizes.size[photo.sizes.size.length - 1].source;
+      return photo.sizes.size[photo.sizes.size.length - 2].source;
     })
 
     this.handlePreloadPhotos(highResPhotos);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class Main extends Component {
   constructor(props) {
     super(props)
@@ -8,28 +9,25 @@ class Main extends Component {
       selectedPhotoIndex: 0,
     }
   }
-
-  handlePhotoURL(photo) {
-    return `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`
-  }
-
+  
   handleSetPhotoIndex(index) {
-    if (index >= 0 && index < this.props.photos.length) {
+    if (index >= 0 && index < this.props.highResPhotos.length) {
       this.setState({ selectedPhotoIndex: index })
     }
   }
 
   render() {
-    const { photos } = this.props;
+    const { highResPhotos, loading } = this.props;
     const { selectedPhotoIndex } = this.state;
 
     return (
-      <div
-        className="main"
-        style={{
-          backgroundImage: `url(${this.handlePhotoURL(photos[selectedPhotoIndex])})`,
-        }}
-      >
+      <div className="main">
+        <img
+          onLoad={() => this.props.handleLoading(false)}
+          src={highResPhotos[selectedPhotoIndex]}
+          style={loading ? { visibility: 'hidden' } : {}}
+        />
+
         <button
           onClick={() => this.handleSetPhotoIndex(selectedPhotoIndex - 1)}
         >
@@ -41,6 +39,7 @@ class Main extends Component {
         >
           next
         </button>
+
       </div>
     )
   }

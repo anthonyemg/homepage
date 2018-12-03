@@ -17,13 +17,19 @@ class Main extends Component {
   }
 
   render() {
-    const { highResPhotos, loading, handleUserSearch } = this.props;
+    const {
+      handleUpdateWarningMessage,
+      handleUserSearch,
+      highResPhotos,
+      loading,
+      warningMessage,
+    } = this.props;
     const { selectedPhotoIndex } = this.state;
 
     return (
       <div className="main">
         <img
-          onLoad={() => this.props.handleLoading(false)}
+          onLoad={() => this.props.handleUpdateLoading(false)}
           src={highResPhotos[selectedPhotoIndex]}
           style={loading ? { visibility: 'hidden' } : {}}
         />
@@ -32,6 +38,8 @@ class Main extends Component {
           handleSetPhotoIndex={(index) => this.handleSetPhotoIndex(index)}
           handleUserSearch={(username) => handleUserSearch(username)}
           selectedPhotoIndex={selectedPhotoIndex}
+          warningMessage={warningMessage}
+          handleUpdateWarningMessage={(message) => handleUpdateWarningMessage(message)}
         />
       </div>
     )

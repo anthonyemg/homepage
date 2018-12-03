@@ -6,61 +6,56 @@ class Navigation extends Component {
 
     this.state = {
       username: '',
-      showSearchBar: false,
     }
   }
 
-  handleOnEnterKeyPress(e) {
+  handleOnEnterKeyDown(e) {
     const { username } = this.state;
-    if (e.key === 'Enter' && username !== '') {
-      this.props.handleUserSearch(username);
-      this.handleDisplaySearchBar(false);
-    }
-  }
+    const {
+      handleUpdateWarningMessage,
+      handleUserSearch,
+      warningMessage,
+    } = this.props;
 
-  handleDisplaySearchBar(bool) {
-    this.setState({ showSearchBar: bool });
+    if (e.keyCode === 13 && username !== '') {
+      handleUserSearch(username);
+    }
+    if (e.keyCode !== 13 && warningMessage !== '') {
+      handleUpdateWarningMessage('');
+    }
   }
 
   handleOnEnterClick(username) {
     if (username !== '') {
-      this.props.handleUserSearch(usernameusername);
-      this.handleDisplaySearchBar(false);
+      this.props.handleUserSearch(username);
     };
   }
 
   render() {
     const {
       handleSetPhotoIndex,
-      handleUserSearch,
       selectedPhotoIndex,
+      warningMessage,
     } = this.props;
-    const { username, showSearchBar } = this.state;
-  
+    const { username } = this.state;
+
     return (
       <div className="navigation">
+        <div className="navigation-search">
+          {warningMessage !== '' && <span className="navigation-search-warning">{warningMessage}</span>}
 
-        {showSearchBar ?
-          <div className="navigation-search">
-            <input
-              onChange={(e) => this.setState({ username: e.target.value })}
-              onKeyPress={(e) => this.handleOnEnterKeyPress(e)}
-              value={username}
-            />
-            <div
-              className="navigation-buttons material-icons"
-              onClick={() =>  this.handleOnEnterClick(username)}
-            >
-              search
-            </div>
-          </div> :
+          <input
+            onChange={(e) => this.setState({ username: e.target.value })}
+            onKeyDown={(e) => this.handleOnEnterKeyDown(e)}
+            value={username}
+          />
           <div
             className="navigation-buttons material-icons"
-            onClick={() => this.handleDisplaySearchBar(true)}
+            onClick={() =>  this.handleOnEnterClick(username)}
           >
             search
           </div>
-        }
+        </div> 
 
         <div
           className="navigation-buttons material-icons"

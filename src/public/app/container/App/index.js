@@ -10,6 +10,7 @@ class App extends Component {
       loading: true,
       photosDetails: [],
       userDetails: {},
+      warningMessage: '',
     }
   }
 
@@ -17,14 +18,26 @@ class App extends Component {
     this.handleFetchUserDetails('anthonyemg');
   }
 
+  handleUpdateWarningMessage(message) {
+    this.setState({ warningMessage: message });
+  }
+
   handleFetchUserDetails(username) {
     fetch(`/user-details/${username}`)
       .then(res => res.json())
       .then(res => {
-        this.setState({ userDetails: res });
-        this.handleFetchPhotos(res.user.id);
+        if (res.stat === 'ok') {
+          this.setState({ userDetails: res });
+          this.handleFetchPhotos(res.user.id);
+        } else {
+          this.handleUpdateWarningMessage('Username is not found.');
+        }
       })
       .catch(err => console.error('Fetch user details error:', err))
+  }
+
+  handleIsUsernameInvalid(boolean) {
+    this.setState({ isUsernameInvalid: boolean });
   }
 
   handleAddPhotoSizes() {
@@ -41,22 +54,25 @@ class App extends Component {
   handleFetchPhotos(userID) {
     fetch(`/photos/${userID}`)
       .then(res => res.json())
-      .then(res => this.setState({ photosDetails: res.photos.photo }))
+      .then(res => {
+        res.photos.photo.length !== 0 ?
+          this.setState({ photosDetails: res.photos.photo }) :
+          this.handleUpdateWarningMessage('Photos are unavailable for this username.');
+      })
       .then(() => this.handleAddPhotoSizes())
       .catch((err) => console.error('Fetch photos error:', err));
   }
 
   handleHighResPhotos(photos) {
     const highResPhotos = photos.map(photo => {
-      return photo.sizes.size[photo.sizes.size.length - 2].source;
+      return photo.sizes.size[photo.sizes.size.length - 3].source;
     })
 
     this.handlePreloadPhotos(highResPhotos);
-
     this.setState({ highResPhotos });
   }
 
-  handleLoading(bool) {
+  handleUpdateLoading(bool) {
     if (this.state.loading !== bool) {
       this.setState({ loading: bool })
     }
@@ -82,6 +98,7 @@ class App extends Component {
       highResPhotos,
       loading,
       userDetails,
+      warningMessage,
     } = this.state;
 
     return (
@@ -89,11 +106,13 @@ class App extends Component {
         {loading && <Loading />}
 
         <Main 
-          handleLoading={(bool) => this.handleLoading(bool)}
+          handleUpdateLoading={(bool) => this.handleUpdateLoading(bool)}
+          handleUpdateWarningMessage={(message) => this.handleUpdateWarningMessage(message)}
           handleUserSearch={(username) => this.handleUserSearch(username)}
           highResPhotos={highResPhotos}
           loading={loading}
           userDetails={userDetails}
+          warningMessage={warningMessage}
         />
       </div>
     )

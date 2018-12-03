@@ -19,6 +19,7 @@ class Navigation extends Component {
 
     if (e.keyCode === 13 && username !== '') {
       handleUserSearch(username);
+      this.props.handleUpdateIsSearchLoading(true);
     }
     if (e.keyCode !== 13 && warningMessage !== '') {
       handleUpdateWarningMessage('');
@@ -28,12 +29,14 @@ class Navigation extends Component {
   handleOnEnterClick(username) {
     if (username !== '') {
       this.props.handleUserSearch(username);
+      this.props.handleUpdateIsSearchLoading(true);
     };
   }
 
   render() {
     const {
       handleSetPhotoIndex,
+      isSearchLoading,
       selectedPhotoIndex,
       warningMessage,
     } = this.props;
@@ -43,6 +46,9 @@ class Navigation extends Component {
       <div className="navigation">
         <div className="navigation-search">
           {warningMessage !== '' && <span className="navigation-search-warning">{warningMessage}</span>}
+
+          {isSearchLoading &&
+          <i className="navigation-search-warning fa fa-spinner fa-spin"></i>}
 
           <input
             onChange={(e) => this.setState({ username: e.target.value })}

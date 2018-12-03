@@ -7,8 +7,10 @@ class App extends Component {
 
     this.state = {
       highResPhotos: [],
+      isSearchLoading: false,
       loading: true,
       photosDetails: [],
+      selectedPhotoIndex: 0,
       userDetails: {},
       warningMessage: '',
     }
@@ -18,7 +20,12 @@ class App extends Component {
     this.handleFetchUserDetails('anthonyemg');
   }
 
+  handleUpdateIsSearchLoading(bool) {
+    this.setState({ isSearchLoading: bool });
+  }
+
   handleUpdateWarningMessage(message) {
+    this.handleUpdateIsSearchLoading(false);
     this.setState({ warningMessage: message });
   }
 
@@ -65,17 +72,18 @@ class App extends Component {
 
   handleHighResPhotos(photos) {
     const highResPhotos = photos.map(photo => {
-      return photo.sizes.size[photo.sizes.size.length - 3].source;
+      return photo.sizes.size[photo.sizes.size.length - 2].source;
     })
 
     this.handlePreloadPhotos(highResPhotos);
-    this.setState({ highResPhotos });
+    this.setState({ highResPhotos, selectedPhotoIndex: 0 });
   }
 
-  handleUpdateLoading(bool) {
+  handlePhotoOnLoad(bool) {
     if (this.state.loading !== bool) {
       this.setState({ loading: bool })
     }
+    this.handleUpdateIsSearchLoading(false);    
   }
 
   handlePreloadPhotos(highResPhotos) {    
@@ -91,26 +99,41 @@ class App extends Component {
 
   handleUserSearch(username) {
     this.handleFetchUserDetails(username);
+    this.setState({ loading: false });
+  }
+
+  handleSetPhotoIndex(index) {
+    if (index >= 0 && index < this.state.highResPhotos.length) {
+      this.setState({ selectedPhotoIndex: index })
+      this.handleUpdateIsSearchLoading(true);
+    }
   }
 
   render() {
     const {
       highResPhotos,
+      isSearchLoading,
       loading,
+      selectedPhotoIndex,
       userDetails,
       warningMessage,
     } = this.state;
 
     return (
       <div className="app">
-        {loading && <Loading />}
+        {loading &&
+        <Loading />}
 
-        <Main 
-          handleUpdateLoading={(bool) => this.handleUpdateLoading(bool)}
+        <Main
+          handlePhotoOnLoad={(bool) => this.handlePhotoOnLoad(bool)}
+          handleSetPhotoIndex={(index) => this.handleSetPhotoIndex(index)}
+          handleUpdateIsSearchLoading={(bool) => this.handleUpdateIsSearchLoading(bool)}
           handleUpdateWarningMessage={(message) => this.handleUpdateWarningMessage(message)}
           handleUserSearch={(username) => this.handleUserSearch(username)}
           highResPhotos={highResPhotos}
+          isSearchLoading={isSearchLoading}
           loading={loading}
+          selectedPhotoIndex={selectedPhotoIndex}
           userDetails={userDetails}
           warningMessage={warningMessage}
         />

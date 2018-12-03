@@ -4,42 +4,39 @@ import { Navigation } from '../index.js';
 class Main extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      selectedPhotoIndex: 0,
-    }
-  }
   
-  handleSetPhotoIndex(index) {
-    if (index >= 0 && index < this.props.highResPhotos.length) {
-      this.setState({ selectedPhotoIndex: index })
-    }
   }
 
   render() {
     const {
+      handlePhotoOnLoad,
+      handleSetPhotoIndex,
+      handleUpdateIsSearchLoading,
       handleUpdateWarningMessage,
       handleUserSearch,
       highResPhotos,
+      isSearchLoading,
       loading,
+      selectedPhotoIndex,
       warningMessage,
     } = this.props;
-    const { selectedPhotoIndex } = this.state;
 
     return (
       <div className="main">
         <img
-          onLoad={() => this.props.handleUpdateLoading(false)}
+          onLoad={() => handlePhotoOnLoad(false)}
           src={highResPhotos[selectedPhotoIndex]}
           style={loading ? { visibility: 'hidden' } : {}}
         />
 
         <Navigation
-          handleSetPhotoIndex={(index) => this.handleSetPhotoIndex(index)}
+          handleSetPhotoIndex={(index) => handleSetPhotoIndex(index)}
+          handleUpdateIsSearchLoading={(bool) => handleUpdateIsSearchLoading(bool)}
+          handleUpdateWarningMessage={(message) => handleUpdateWarningMessage(message)}
           handleUserSearch={(username) => handleUserSearch(username)}
+          isSearchLoading={isSearchLoading}
           selectedPhotoIndex={selectedPhotoIndex}
           warningMessage={warningMessage}
-          handleUpdateWarningMessage={(message) => handleUpdateWarningMessage(message)}
         />
       </div>
     )

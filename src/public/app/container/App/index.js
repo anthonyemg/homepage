@@ -10,6 +10,7 @@ class App extends Component {
       isSearchLoading: false,
       loading: true,
       photosDetails: [],
+      searchedUsername: '',
       selectedPhotoIndex: 0,
       userDetails: {},
       warningMessage: '',
@@ -17,7 +18,14 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.handleFetchUserDetails('anthonyemg');
+    this.handleUserSearch('anthonyemg');
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.userDetails !== this.state.userDetails) {
+      console.log('componentDidUpdate');
+      this.setState({ selectedPhotoIndex: 0 });
+    }
   }
 
   handleUpdateIsSearchLoading(bool) {
@@ -79,11 +87,11 @@ class App extends Component {
     this.setState({ highResPhotos, selectedPhotoIndex: 0 });
   }
 
-  handlePhotoOnLoad(bool) {
-    if (this.state.loading !== bool) {
-      this.setState({ loading: bool })
+  handlePhotoOnLoad() {
+    if (this.state.loading !== false) {
+      this.setState({ loading: false })
     }
-    this.handleUpdateIsSearchLoading(false);    
+    this.handleUpdateIsSearchLoading(false);
   }
 
   handlePreloadPhotos(highResPhotos) {    
@@ -98,8 +106,15 @@ class App extends Component {
   }
 
   handleUserSearch(username) {
-    this.handleFetchUserDetails(username);
-    this.setState({ loading: false });
+    if (username.trim() !== this.state.searchedUsername) {
+      this.handleFetchUserDetails(username);
+      this.setState({ searchedUsername: username, isSearchLoading: true });
+    } else {
+      if (this.state.selectedPhotoIndex !== 0) {
+        console.log('else if')
+        this.setState({ selectedPhotoIndex: 0 });
+      }
+    }
   }
 
   handleSetPhotoIndex(index) {
@@ -125,7 +140,7 @@ class App extends Component {
         <Loading />}
 
         <Main
-          handlePhotoOnLoad={(bool) => this.handlePhotoOnLoad(bool)}
+          handlePhotoOnLoad={() => this.handlePhotoOnLoad()}
           handleSetPhotoIndex={(index) => this.handleSetPhotoIndex(index)}
           handleUpdateIsSearchLoading={(bool) => this.handleUpdateIsSearchLoading(bool)}
           handleUpdateWarningMessage={(message) => this.handleUpdateWarningMessage(message)}

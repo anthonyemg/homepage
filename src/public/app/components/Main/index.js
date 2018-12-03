@@ -24,7 +24,7 @@ class Main extends Component {
     return (
       <div className="main">
         <img
-          onLoad={() => handlePhotoOnLoad(false)}
+          onLoad={() => handlePhotoOnLoad()}
           src={highResPhotos[selectedPhotoIndex]}
           style={loading ? { visibility: 'hidden' } : {}}
         />

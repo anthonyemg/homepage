@@ -19,7 +19,6 @@ class Navigation extends Component {
 
     if (e.keyCode === 13 && username !== '') {
       handleUserSearch(username);
-      this.props.handleUpdateIsSearchLoading(true);
     }
     if (e.keyCode !== 13 && warningMessage !== '') {
       handleUpdateWarningMessage('');
@@ -29,7 +28,6 @@ class Navigation extends Component {
   handleOnEnterClick(username) {
     if (username !== '') {
       this.props.handleUserSearch(username);
-      this.props.handleUpdateIsSearchLoading(true);
     };
   }
 

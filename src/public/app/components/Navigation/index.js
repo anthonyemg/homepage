@@ -56,25 +56,27 @@ class Navigation extends Component {
             value={username}
           />
           <div
-            className="navigation-buttons material-icons"
+            className="navigation-search-button material-icons"
             onClick={() =>  this.handleOnEnterClick(username)}
           >
             search
           </div>
         </div> 
 
-        <div
-          className="navigation-buttons material-icons"
-          onClick={() => handleSetPhotoIndex(selectedPhotoIndex - 1)}
-        >
-          arrow_back_ios
-        </div>
+        <div className="navigation-buttons">
+          <div
+            className="material-icons"
+            onClick={() => handleSetPhotoIndex(selectedPhotoIndex - 1)}
+          >
+            arrow_back_ios
+          </div>
 
-        <div
-          className="navigation-buttons material-icons"
-          onClick={() => handleSetPhotoIndex(selectedPhotoIndex + 1)}
-        >
-          arrow_forward_ios
+          <div
+            className="material-icons"
+            onClick={() => handleSetPhotoIndex(selectedPhotoIndex + 1)}
+          >
+            arrow_forward_ios
+          </div>
         </div>
       </div>
     )

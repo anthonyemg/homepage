@@ -1,6 +1,7 @@
 .navigation {
   align-items: center;
   display: flex;
+  padding: 20px 20px;
 
   .navigation-search {
     display: flex;
@@ -21,13 +22,28 @@
       height: 26px;
       padding: 0px 10px;
     }
+
+    .navigation-search-button {
+      color: #fff;
+      cursor: pointer;
+      font-size: 30px;
+      padding-left: 10px;
+      user-select: none;
+    }
   }
 
   .navigation-buttons {
-    color: #fff;
-    cursor: pointer;
-    font-size: 30px;
-    padding: 20px;
-    user-select: none;
+    margin-left: 20px;
+
+    .material-icons {
+      color: #fff;
+      cursor: pointer;
+      font-size: 30px;
+      user-select: none;
+
+      &:last-child {
+        margin-left: 10px;
+      }
+    }
   }
 }

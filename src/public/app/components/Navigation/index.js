@@ -5,7 +5,7 @@ class Navigation extends Component {
     super(props);
 
     this.state = {
-      username: '',
+      username: 'anthonyemg',
     }
   }
 

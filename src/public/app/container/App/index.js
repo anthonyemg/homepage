@@ -19,12 +19,23 @@ class App extends Component {
 
   componentWillMount() {
     this.handleUserSearch('anthonyemg');
+    document.onkeydown = (e) => this.handleKeyPress(e);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.userDetails !== this.state.userDetails) {
-      console.log('componentDidUpdate');
       this.setState({ selectedPhotoIndex: 0 });
+    }
+  }
+
+  handleKeyPress(e) {
+    const { selectedPhotoIndex } = this.state;
+
+    if (e.keyCode === '37') {
+      this.handleSetPhotoIndex(selectedPhotoIndex - 1);
+    }
+    if (e.keyCode === '39') {
+      this.handleSetPhotoIndex(selectedPhotoIndex + 1);
     }
   }
 
@@ -111,7 +122,6 @@ class App extends Component {
       this.setState({ searchedUsername: username, isSearchLoading: true });
     } else {
       if (this.state.selectedPhotoIndex !== 0) {
-        console.log('else if')
         this.setState({ selectedPhotoIndex: 0 });
       }
     }

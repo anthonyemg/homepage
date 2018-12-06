@@ -19,6 +19,7 @@ class App extends Component {
 
   componentWillMount() {
     this.handleUserSearch('anthonyemg');
+  
     document.onkeydown = (e) => this.handleKeyPress(e);
   }
 
@@ -31,10 +32,10 @@ class App extends Component {
   handleKeyPress(e) {
     const { selectedPhotoIndex } = this.state;
 
-    if (e.keyCode === '37') {
+    if (e.keyCode === 37) {
       this.handleSetPhotoIndex(selectedPhotoIndex - 1);
     }
-    if (e.keyCode === '39') {
+    if (e.keyCode === 39) {
       this.handleSetPhotoIndex(selectedPhotoIndex + 1);
     }
   }

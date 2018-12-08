@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navigation } from '../index.js';
+import { Navigation, Search } from '../index.js';
 
 class Main extends Component {
   constructor(props) {
@@ -28,6 +28,9 @@ class Main extends Component {
           src={highResPhotos[selectedPhotoIndex]}
           style={loading ? { visibility: 'hidden' } : {}}
         />
+
+        {!loading &&
+        <Search />}
 
         <Navigation
           handleSetPhotoIndex={(index) => handleSetPhotoIndex(index)}

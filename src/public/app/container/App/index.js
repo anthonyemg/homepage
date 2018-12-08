@@ -25,7 +25,8 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.userDetails !== this.state.userDetails) {
-      this.setState({ selectedPhotoIndex: 0 });
+      console.log('componentDidUpdate if')
+      // this.setState({ selectedPhotoIndex: 0 });
     }
   }
 
@@ -83,7 +84,10 @@ class App extends Component {
       .then(res => res.json())
       .then(res => {
         res.photos.photo.length !== 0 ?
-          this.setState({ photosDetails: res.photos.photo }) :
+          this.setState({
+            photosDetails: res.photos.photo, 
+            selectedPhotoIndex: this.handleRandomPhoto(res.photos.photo.length),
+          }) :
           this.handleUpdateWarningMessage('Photos are unavailable for this username.');
       })
       .then(() => this.handleAddPhotoSizes())
@@ -96,7 +100,7 @@ class App extends Component {
     })
 
     this.handlePreloadPhotos(highResPhotos);
-    this.setState({ highResPhotos, selectedPhotoIndex: 0 });
+    this.setState({ highResPhotos });
   }
 
   handlePhotoOnLoad() {
@@ -117,13 +121,19 @@ class App extends Component {
     this.preloadedImages = preloadPhotos;
   }
 
+  handleRandomPhoto(length) {
+    const a =  Math.floor(Math.random() * length);
+console.log('handleRandomPhoto', a)
+    return a;
+  }
+
   handleUserSearch(username) {
     if (username.trim() !== this.state.searchedUsername) {
       this.handleFetchUserDetails(username);
       this.setState({ searchedUsername: username, isSearchLoading: true });
     } else {
       if (this.state.selectedPhotoIndex !== 0) {
-        this.setState({ selectedPhotoIndex: 0 });
+        // this.setState({ selectedPhotoIndex: 0 });
       }
     }
   }

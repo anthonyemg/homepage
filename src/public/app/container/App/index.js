@@ -23,13 +23,6 @@ class App extends Component {
     document.onkeydown = (e) => this.handleKeyPress(e);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.userDetails !== this.state.userDetails) {
-      console.log('componentDidUpdate if')
-      // this.setState({ selectedPhotoIndex: 0 });
-    }
-  }
-
   handleKeyPress(e) {
     const { selectedPhotoIndex } = this.state;
 
@@ -46,8 +39,10 @@ class App extends Component {
   }
 
   handleUpdateWarningMessage(message) {
-    this.handleUpdateIsSearchLoading(false);
-    this.setState({ warningMessage: message });
+    this.setState({
+      isSearchLoading: false,
+      warningMessage: message
+    });
   }
 
   handleFetchUserDetails(username) {
@@ -55,8 +50,7 @@ class App extends Component {
       .then(res => res.json())
       .then(res => {
         if (res.stat === 'ok') {
-          this.setState({ userDetails: res });
-          this.handleFetchPhotos(res.user.id);
+          this.handleFetchPhotos(res.user.id, username);
         } else {
           this.handleUpdateWarningMessage('Username is not found.');
         }
@@ -68,39 +62,39 @@ class App extends Component {
     this.setState({ isUsernameInvalid: boolean });
   }
 
-  handleAddPhotoSizes() {
-    const promises = this.state.photosDetails.map(photo => {
+  handleAddPhotoSizes(photos, username) {
+    const promises = photos.map(photo => {
       return fetch(`/photo-sizes/${photo.id}`);
     })
 
     Promise.all(promises)
       .then(res => Promise.all(res.map(res => res.json())))
-      .then(res => this.handleHighResPhotos(res))
+      .then(res => this.handleHighResPhotos(res, username))
       .catch(err => console.error('Fetch photo sizes error:', err))
   }
 
-  handleFetchPhotos(userID) {
+  handleFetchPhotos(userID, username) {
     fetch(`/photos/${userID}`)
       .then(res => res.json())
       .then(res => {
         res.photos.photo.length !== 0 ?
-          this.setState({
-            photosDetails: res.photos.photo, 
-            selectedPhotoIndex: this.handleRandomPhoto(res.photos.photo.length),
-          }) :
+          this.handleAddPhotoSizes(res.photos.photo, username) :
           this.handleUpdateWarningMessage('Photos are unavailable for this username.');
       })
-      .then(() => this.handleAddPhotoSizes())
       .catch((err) => console.error('Fetch photos error:', err));
   }
 
-  handleHighResPhotos(photos) {
+  handleHighResPhotos(photos, username) {
     const highResPhotos = photos.map(photo => {
       return photo.sizes.size[photo.sizes.size.length - 2].source;
     })
 
     this.handlePreloadPhotos(highResPhotos);
-    this.setState({ highResPhotos });
+    this.setState({
+      highResPhotos,
+      searchedUsername: username,
+      selectedPhotoIndex: this.handleRandomPhoto(highResPhotos.length),
+    });
   }
 
   handlePhotoOnLoad() {
@@ -121,21 +115,23 @@ class App extends Component {
     this.preloadedImages = preloadPhotos;
   }
 
+  handleRandomIndex(length) {
+    return Math.floor(Math.random() * length);
+  }
+
   handleRandomPhoto(length) {
-    const a =  Math.floor(Math.random() * length);
-console.log('handleRandomPhoto', a)
-    return a;
+    let index = this.handleRandomIndex(length)
+
+    while (index === this.state.selectedPhotoIndex) {
+      index = this.handleRandomIndex(length);
+    }
+
+    return index;
   }
 
   handleUserSearch(username) {
-    if (username.trim() !== this.state.searchedUsername) {
-      this.handleFetchUserDetails(username);
-      this.setState({ searchedUsername: username, isSearchLoading: true });
-    } else {
-      if (this.state.selectedPhotoIndex !== 0) {
-        // this.setState({ selectedPhotoIndex: 0 });
-      }
-    }
+    this.handleFetchUserDetails(username);
+    this.setState({ isSearchLoading: true });
   }
 
   handleSetPhotoIndex(index) {

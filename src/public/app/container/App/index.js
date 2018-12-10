@@ -8,6 +8,7 @@ class App extends Component {
     this.state = {
       highResPhotos: [],
       isSearchLoading: false,
+      key: 0,
       loading: true,
       photosDetails: [],
       searchedUsername: '',
@@ -84,7 +85,7 @@ class App extends Component {
       .catch((err) => console.error('Fetch photos error:', err));
   }
 
-  handleHighResPhotos(photos, username) {
+  handleHighResPhotos(photos, searchedUsername) {
     const highResPhotos = photos.map(photo => {
       return photo.sizes.size[photo.sizes.size.length - 2].source;
     })
@@ -92,8 +93,9 @@ class App extends Component {
     this.handlePreloadPhotos(highResPhotos);
     this.setState({
       highResPhotos,
-      searchedUsername: username,
-      selectedPhotoIndex: this.handleRandomPhoto(highResPhotos.length),
+      key: Math.random(),
+      searchedUsername,
+      selectedPhotoIndex: 0,
     });
   }
 
@@ -101,6 +103,7 @@ class App extends Component {
     if (this.state.loading !== false) {
       this.setState({ loading: false })
     }
+
     this.handleUpdateIsSearchLoading(false);
   }
 
@@ -145,6 +148,7 @@ class App extends Component {
     const {
       highResPhotos,
       isSearchLoading,
+      key,
       loading,
       selectedPhotoIndex,
       userDetails,
@@ -164,6 +168,7 @@ class App extends Component {
           handleUserSearch={(username) => this.handleUserSearch(username)}
           highResPhotos={highResPhotos}
           isSearchLoading={isSearchLoading}
+          key={key}
           loading={loading}
           selectedPhotoIndex={selectedPhotoIndex}
           userDetails={userDetails}

@@ -20,7 +20,7 @@ class App extends Component {
   componentWillMount() {
     this.handleUserSearch('anthonyemg');
   
-    document.onkeydown = (e) => this.handleKeyPress(e);
+    window.onkeydown = (e) => this.handleKeyPress(e);
   }
 
   handleKeyPress(e) {

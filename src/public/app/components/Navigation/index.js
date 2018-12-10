@@ -10,6 +10,7 @@ class Navigation extends Component {
   }
 
   handleOnEnterKeyDown(e) {
+    e.stopPropagation();
     const { username } = this.state;
     const {
       handleUpdateWarningMessage,
@@ -31,6 +32,10 @@ class Navigation extends Component {
     };
   }
 
+  handleOnChange(e) {
+    this.setState({ username: e.target.value })
+  }
+
   render() {
     const {
       handleSetPhotoIndex,
@@ -49,7 +54,7 @@ class Navigation extends Component {
           <i className="navigation-search-warning fa fa-spinner fa-spin"></i>}
 
           <input
-            onChange={(e) => this.setState({ username: e.target.value })}
+            onChange={(e) => this.handleOnChange(e)}
             onKeyDown={(e) => this.handleOnEnterKeyDown(e)}
             value={username}
           />

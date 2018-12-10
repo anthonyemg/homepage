@@ -14,6 +14,8 @@ class Search extends Component {
   }
 
   handleInputOnKeyDown(e) {
+    e.stopPropagation();
+
     const { inputValue } = this.state;
 
     if (e.keyCode === 13) {

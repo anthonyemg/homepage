@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
-import { Navigation, Search } from '../index.js';
+import { Navigation, Menu, Search } from '../index.js';
 
 class Main extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      displayMenu: false,
+    }
+  }
+
+  handleToggleMenu() {
+    console.log('handleToggleMenu', !this.state.displayMenu)
+    this.setState({ displayMenu: !this.state.displayMenu })
   }
 
   render() {
+    const { displayMenu } = this.state;
     const {
       handlePhotoOnLoad,
       handleSetPhotoIndex,
@@ -32,8 +41,14 @@ class Main extends Component {
         {!loading &&
         <Search />}
 
+        <Menu
+          displayMenu={displayMenu}
+          handleToggleMenu={() => this.handleToggleMenu()}
+        />
+
         <Navigation
           handleSetPhotoIndex={(index) => handleSetPhotoIndex(index)}
+          handleToggleMenu={() => this.handleToggleMenu()}
           handleUpdateIsSearchLoading={(bool) => handleUpdateIsSearchLoading(bool)}
           handleUpdateWarningMessage={(message) => handleUpdateWarningMessage(message)}
           handleUserSearch={(username) => handleUserSearch(username)}

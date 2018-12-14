@@ -32,7 +32,7 @@ class Search extends Component {
           onChange={(e) => this.handleInputOnChange(e)}
           onKeyDown={(e) => this.handleInputOnKeyDown(e)}
           value={inputValue}
-          placeholder="Search..."
+          placeholder="Search google..."
         />       
       </div>
     )

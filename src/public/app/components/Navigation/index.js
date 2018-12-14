@@ -39,6 +39,7 @@ class Navigation extends Component {
   render() {
     const {
       handleSetPhotoIndex,
+      handleToggleMenu,
       isSearchLoading,
       selectedPhotoIndex,
       warningMessage,
@@ -79,6 +80,13 @@ class Navigation extends Component {
             onClick={() => handleSetPhotoIndex(selectedPhotoIndex + 1)}
           >
             arrow_forward_ios
+          </div>
+
+          <div
+            className="material-icons"
+            onClick={() => handleToggleMenu()}
+          >
+            more_vert
           </div>
         </div>
       </div>

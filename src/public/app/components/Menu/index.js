@@ -14,14 +14,14 @@ class Menu extends Component {
 
     return (
       <div
-        className="menu"
+        className="menu-container"
         data-display-menu={displayMenu}
+        onClick={() => handleToggleMenu()}
       >
-        <button
-          onClick={() => handleToggleMenu()}
+        <div className="menu"
+        onClick={(e) => e.stopPropagation()}
         >
-          close
-        </button>
+        </div>
       </div>
     )
   }

@@ -11,7 +11,6 @@ class Main extends Component {
   }
 
   handleToggleMenu() {
-    console.log('handleToggleMenu', !this.state.displayMenu)
     this.setState({ displayMenu: !this.state.displayMenu })
   }
 
@@ -36,6 +35,7 @@ class Main extends Component {
           onLoad={() => handlePhotoOnLoad()}
           src={highResPhotos[selectedPhotoIndex]}
           style={loading ? { visibility: 'hidden' } : {}}
+          
         />
 
         {!loading &&

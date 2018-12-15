@@ -24,6 +24,14 @@ app.get('/photo-sizes/:id', function(req, res) {
   })
 })
 
+app.get('/photo-info/:id', function(req, res) {
+  request.get(`https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=${KEY}&photo_id=${req.params.id}&format=json&nojsoncallback=1`,
+
+  function (e, r, data) {
+    res.send(data);
+  })
+})
+
 app.get('/user-details/:username', function(req, res) {
   request.get(`https://api.flickr.com/services/rest/?method=flickr.people.findByUsername&api_key=${KEY}&username=${req.params.username}&format=json&nojsoncallback=1`,
 

@@ -64,6 +64,7 @@ class App extends Component {
   }
 
   handleAddPhotoSizes(photos, username) {
+    console.log('handleAddPhotoSizes', photos);
     const promises = photos.map(photo => {
       return fetch(`/photo-sizes/${photo.id}`);
     })
@@ -74,12 +75,26 @@ class App extends Component {
       .catch(err => console.error('Fetch photo sizes error:', err))
   }
 
+  handleAddPhotoDetails(photos, username) {
+    console.log('handleAddPhotoDetails', photos);
+    const promises = photos.map(photo => {
+      return fetch(`/photo-info/${photo.id}`);
+    })
+
+    Promise.all(promises)
+      .then(res => Promise.all(res.map(res => res.json())))
+      .then(res => this.setState({ photosInfo: res }))
+      .then(() => this.handleAddPhotoSizes(photos, username))
+      .catch(err => console.error('Fetch photo sizes error:', err))
+  }
+
   handleFetchPhotos(userID, username) {
     fetch(`/photos/${userID}`)
       .then(res => res.json())
       .then(res => {
         res.photos.photo.length !== 0 ?
-          this.handleAddPhotoSizes(res.photos.photo, username) :
+          // this.handleAddPhotoSizes(res.photos.photo, username) : 
+          this.handleAddPhotoDetails(res.photos.photo, username) :           
           this.handleUpdateWarningMessage('Photos are unavailable for this username.');
       })
       .catch((err) => console.error('Fetch photos error:', err));
@@ -154,6 +169,8 @@ class App extends Component {
       userDetails,
       warningMessage,
     } = this.state;
+
+    console.log('photosInfo', this.state.photosInfo);
 
     return (
       <div className="app">

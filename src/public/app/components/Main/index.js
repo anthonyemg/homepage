@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navigation, Menu, Search } from '../index.js';
+import { Navigation, SideMenu, Search } from '../index.js';
 
 class Main extends Component {
   constructor(props) {
@@ -41,20 +41,20 @@ class Main extends Component {
         {!loading &&
         <Search />}
 
-        <Menu
+        <SideMenu
           displayMenu={displayMenu}
-          handleToggleMenu={() => this.handleToggleMenu()}
-        />
-
-        <Navigation
-          handleSetPhotoIndex={(index) => handleSetPhotoIndex(index)}
           handleToggleMenu={() => this.handleToggleMenu()}
           handleUpdateIsSearchLoading={(bool) => handleUpdateIsSearchLoading(bool)}
           handleUpdateWarningMessage={(message) => handleUpdateWarningMessage(message)}
           handleUserSearch={(username) => handleUserSearch(username)}
           isSearchLoading={isSearchLoading}
-          selectedPhotoIndex={selectedPhotoIndex}
           warningMessage={warningMessage}
+        />
+
+        <Navigation
+          handleSetPhotoIndex={(index) => handleSetPhotoIndex(index)}
+          handleToggleMenu={() => this.handleToggleMenu()}
+          selectedPhotoIndex={selectedPhotoIndex}
         />
       </div>
     )

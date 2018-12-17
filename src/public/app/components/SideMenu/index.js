@@ -3,11 +3,14 @@ import React, { Component } from 'react';
 class SideMenu extends Component {
   constructor(props) {
     super(props);
+  }
 
-    this.state = {
-      username: 'anthonyemg',
+  componentDidUpdate(prev) {
+    if (prev.displayMenu === false && this.props.displayMenu) {
+      this.inputField.focus();
     }
   }
+
 
   handleOnChange(e) {
     this.setState({ username: e.target.value })
@@ -60,9 +63,10 @@ class SideMenu extends Component {
           <i className="side-menu-navigation-search-loading fa fa-spinner fa-spin"></i>}
 
           <input
-            onChange={(e) => this.handleOnChange(e)}
-            onKeyDown={(e) => this.handleOnEnterKeyDown(e)}
+            onChange={e => this.handleOnChange(e)}
+            onKeyDown={e => this.handleOnEnterKeyDown(e)}
             value={username}
+            ref={el => { this.inputField = el } }
           />
           <div
             className="side-menu-navigation-search-button material-icons"

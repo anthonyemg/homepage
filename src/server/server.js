@@ -8,7 +8,7 @@ const { KEY, SECRET, USER_ID } = process.env;
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.get('/photos/:userID', function(req, res) {
+app.get('/photos-ids/:userID', function(req, res) {
   request.get(`https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${KEY}&user_id=${req.params.userID}&format=json&nojsoncallback=1`,
 
   function (e, r, data) {

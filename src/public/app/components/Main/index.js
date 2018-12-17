@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { Navigation, SideMenu, Search } from '../index.js';
+import {
+  Footer,
+  Search,
+  SideMenu,
+} from '../index.js';
 
 class Main extends Component {
   constructor(props) {
@@ -25,6 +29,7 @@ class Main extends Component {
       highResPhotos,
       isSearchLoading,
       loading,
+      photosInfo,
       selectedPhotoIndex,
       warningMessage,
     } = this.props;
@@ -35,7 +40,6 @@ class Main extends Component {
           onLoad={() => handlePhotoOnLoad()}
           src={highResPhotos[selectedPhotoIndex]}
           style={loading ? { visibility: 'hidden' } : {}}
-          
         />
 
         {!loading &&
@@ -51,11 +55,14 @@ class Main extends Component {
           warningMessage={warningMessage}
         />
 
-        <Navigation
+        {!loading &&
+        <Footer
           handleSetPhotoIndex={(index) => handleSetPhotoIndex(index)}
           handleToggleMenu={() => this.handleToggleMenu()}
+          photosInfo={photosInfo}
           selectedPhotoIndex={selectedPhotoIndex}
-        />
+        />}
+
       </div>
     )
   }

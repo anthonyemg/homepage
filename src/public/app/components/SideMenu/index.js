@@ -64,15 +64,16 @@ class SideMenu extends Component {
     return (
       <div className="side-menu"
         data-display-side-menu={displayMenu}
-        onClick={(e) => { e.stopPropagation; }}
       >
+
+      <span>Search flickr by username</span>
+
       <div
         className="side-menu-navigation-search"
-        onClick={(e) => { e.stopPropagation; }}
       >
         {isSearchLoading &&
         <i className="side-menu-navigation-search-loading fa fa-spinner fa-spin"></i>}
-
+  
         <input
           onChange={e => this.handleOnChange(e)}
           onKeyDown={e => this.handleOnEnterKeyDown(e)}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { ResSelector } from '../../components';
 
 class SideMenu extends Component {
   constructor(props) {
@@ -55,7 +56,7 @@ class SideMenu extends Component {
   render() {
     const {
       displayMenu,
-      // handleToggleMenu,
+      handleRes,
       isSearchLoading,
       username,
       warningMessage,
@@ -89,6 +90,8 @@ class SideMenu extends Component {
       </div> 
 
       {warningMessage !== '' && <div className="side-menu-navigation-search-warning">{warningMessage}</div>}
+
+      <ResSelector handleRes={(res) => handleRes(res)} />
 
       </div>
     )

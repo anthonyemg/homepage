@@ -15,6 +15,7 @@ class App extends Component {
       selectedPhotoIndex: 0,
       userDetails: {},
       warningMessage: '',
+      selectedRes: 'low'
     }
   }
 
@@ -110,8 +111,14 @@ class App extends Component {
   }
 
   handleHighResPhotos(photos) {
+    const { selectedRes } = this.state;
+    const res = {
+      low: 2,
+      high: 1,
+    }
+
     const highResPhotos = photos.map(photo => {
-      return photo.sizes.size[photo.sizes.size.length - 2].source;
+      return photo.sizes.size[photo.sizes.size.length - res[selectedRes]].source;
     })
 
     this.handlePreloadPhotos(highResPhotos);
@@ -164,6 +171,10 @@ class App extends Component {
     }
   }
 
+  handleRes(res) {
+    this.setState({ selectedRes: res });
+  }
+
   render() {
     const {
       highResPhotos,
@@ -183,6 +194,7 @@ class App extends Component {
 
         <Main
           handlePhotoOnLoad={() => this.handlePhotoOnLoad()}
+          handleRes={(res) => this.handleRes(res)}
           handleSetPhotoIndex={(index) => this.handleSetPhotoIndex(index)}
           handleUpdateIsSearchLoading={(bool) => this.handleUpdateIsSearchLoading(bool)}
           handleUpdateWarningMessage={(message) => this.handleUpdateWarningMessage(message)}

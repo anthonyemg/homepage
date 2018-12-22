@@ -22,6 +22,7 @@ class Main extends Component {
     const { displayMenu } = this.state;
     const {
       handlePhotoOnLoad,
+      handleRes,
       handleSetPhotoIndex,
       handleUpdateIsSearchLoading,
       handleUpdateWarningMessage,
@@ -47,6 +48,7 @@ class Main extends Component {
 
         <SideMenu
           displayMenu={displayMenu}
+          handleRes={(res) => handleRes(res)}
           handleToggleMenu={() => this.handleToggleMenu()}
           handleUpdateIsSearchLoading={(bool) => handleUpdateIsSearchLoading(bool)}
           handleUpdateWarningMessage={(message) => handleUpdateWarningMessage(message)}

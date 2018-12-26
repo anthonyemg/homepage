@@ -173,6 +173,7 @@ class App extends Component {
 
   handleRes(res) {
     this.setState({ selectedRes: res });
+    this.handleUserSearch(this.state.searchedUsername);
   }
 
   render() {

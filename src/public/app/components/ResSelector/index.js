@@ -18,9 +18,10 @@ class ResSelector extends Component {
 
   render() {
     const { selected } = this.state;
+    const classNamePrefix = 'res-selector';
 
     return (
-      <div className="res-selector">
+      <div className={classNamePrefix}>
         <span
           data-selected={selected === 'low'}
           onClick={() => this.handleToggle('low')}  

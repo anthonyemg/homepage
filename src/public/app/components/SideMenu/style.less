@@ -18,15 +18,9 @@
     margin: 10px 20px 0px 20px;
   }
 
-  .side-menu-navigation-search {
+  &--navigation-search {
     display: flex;
     padding: 10px 20px;
-
-    .side-menu-navigation-search-loading {
-      position: absolute;
-      right: 50px;
-      top: 42px;
-    }
 
     input {
       background: rgba(255, 255, 255, 0.7);
@@ -39,20 +33,26 @@
       width: 180px;
       border-right: none;
     }
-
-    .side-menu-navigation-search-button {
-      cursor: pointer;
-      font-size: 30px;
-      padding-left: 10px;
-      user-select: none;
-      color: #b5b5b5;
-      border: 1px solid #b5b5b5;
-      border-left: none;
-      background: rgba(255, 255, 255, 0.7)
-    }
   }
 
-  .side-menu-navigation-search-warning {
+  &--search-button {
+    cursor: pointer;
+    font-size: 30px;
+    padding-left: 10px;
+    user-select: none;
+    color: #b5b5b5;
+    border: 1px solid #b5b5b5;
+    border-left: none;
+    background: rgba(255, 255, 255, 0.7)
+  }
+
+  &--spinner {
+    position: absolute;
+    right: 50px;
+    top: 42px;
+  }
+
+  &--search-warning {
     font-size: 11x;
     padding: 0px 58px 0px 20px;
   }

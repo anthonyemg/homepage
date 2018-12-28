@@ -34,9 +34,10 @@ class Main extends Component {
       selectedPhotoIndex,
       warningMessage,
     } = this.props;
+    const classNamePrefix = 'main';
 
     return (
-      <div className="main">
+      <div className={classNamePrefix}>
         <img
           onLoad={() => handlePhotoOnLoad()}
           src={highResPhotos[selectedPhotoIndex]}

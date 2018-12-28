@@ -61,19 +61,20 @@ class SideMenu extends Component {
       username,
       warningMessage,
     } = this.props;
+    const classNamePrefix = 'side-menu';
 
     return (
-      <div className="side-menu"
+      <div className={classNamePrefix}
         data-display-side-menu={displayMenu}
       >
 
       <span>Search flickr by username</span>
 
       <div
-        className="side-menu-navigation-search"
+        className={`${classNamePrefix}--navigation-search`}
       >
         {isSearchLoading &&
-        <i className="side-menu-navigation-search-loading fa fa-spinner fa-spin"></i>}
+        <i className={`${classNamePrefix}--spinner fa fa-spinner fa-spin`}></i>}
   
         <input
           onChange={e => this.handleOnChange(e)}
@@ -82,14 +83,14 @@ class SideMenu extends Component {
           ref={el => { this.inputField = el } }
         />
         <div
-          className="side-menu-navigation-search-button material-icons"
+          className={`${classNamePrefix}--search-button material-icons`}
           onClick={() =>  this.handleOnEnterClick(username)}
         >
           search
         </div>
       </div> 
 
-      {warningMessage !== '' && <div className="side-menu-navigation-search-warning">{warningMessage}</div>}
+      {warningMessage !== '' && <div className={`${classNamePrefix}--search-warning`}>{warningMessage}</div>}
 
       <ResSelector handleRes={(res) => handleRes(res)} />
 

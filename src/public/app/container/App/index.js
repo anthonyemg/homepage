@@ -187,9 +187,10 @@ class App extends Component {
       userDetails,
       warningMessage,
     } = this.state;
+    const classNamePrefix = "app";
 
     return (
-      <div className="app">
+      <div className={classNamePrefix}>
         {loading &&
         <Loading />}
 

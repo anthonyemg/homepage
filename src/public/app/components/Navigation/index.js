@@ -11,10 +11,11 @@ class Navigation extends Component {
       handleToggleMenu,
       selectedPhotoIndex,
     } = this.props;
+    const classNamePrefix = "navigation";
 
     return (
-      <div className="navigation">
-        <div className="navigation-buttons">
+      <div className={classNamePrefix}>
+        <div className={`${classNamePrefix}--buttons`}>
           <div
             className="material-icons"
             onClick={() => handleSetPhotoIndex(selectedPhotoIndex - 1)}

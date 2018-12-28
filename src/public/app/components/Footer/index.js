@@ -13,9 +13,10 @@ class Footer extends Component {
       photosInfo,
       selectedPhotoIndex,
     } = this.props;
+    const classNamePrefix = 'footer';
   
     return (
-      <div className="footer">
+      <div className={classNamePrefix}>
         <PhotoInfo
           photosInfo={photosInfo}
           selectedPhotoIndex={selectedPhotoIndex}

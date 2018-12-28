@@ -25,9 +25,10 @@ class Search extends Component {
 
   render() {
     const { inputValue } = this.state;
+    const classNamePrefix = 'search';
 
     return (
-      <div className="search">
+      <div className={classNamePrefix}>
         <input
           onChange={(e) => this.handleInputOnChange(e)}
           onKeyDown={(e) => this.handleInputOnKeyDown(e)}

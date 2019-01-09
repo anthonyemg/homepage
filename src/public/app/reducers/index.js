@@ -1,16 +1,19 @@
 import { combineReducers } from 'redux';
+import * as actions from '../actions';
 
-const rootReducer = combineReducers({
+const initialState = {
   photos: [],
-});
+};
 
-const videos = (state = null, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_VPHOTOS':
-      return action.payload;
+    case actions.RESET_STATE:
+      return initialState;
+    case UPDATE_PHOTOS:
+      return { ...state, photos:action.payload };
     default:
       return state;
   }
 };
 
-export default rootReducer;
+export default combineReducers({ reducer });

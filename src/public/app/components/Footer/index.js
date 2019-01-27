@@ -10,6 +10,7 @@ class Footer extends Component {
     const {
       handleSetPhotoIndex,
       handleToggleMenu,
+      highResPhotos,
       photosInfo,
       selectedPhotoIndex,
     } = this.props;
@@ -25,6 +26,7 @@ class Footer extends Component {
         <Navigation
           handleSetPhotoIndex={(index) => handleSetPhotoIndex(index)}
           handleToggleMenu={() => handleToggleMenu()}
+          highResPhotos={highResPhotos}
           selectedPhotoIndex={selectedPhotoIndex}
         />
       </div>

@@ -62,6 +62,7 @@ class Main extends Component {
         <Footer
           handleSetPhotoIndex={(index) => handleSetPhotoIndex(index)}
           handleToggleMenu={() => this.handleToggleMenu()}
+          highResPhotos={highResPhotos}
           photosInfo={photosInfo}
           selectedPhotoIndex={selectedPhotoIndex}
         />}
